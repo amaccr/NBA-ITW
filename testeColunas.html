@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NBA Players</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+<table>
+    <tbody id="playerTableBody"></tbody>
+</table>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const apiData = [
+            {"Id":920,"Name":"A.C. Green","Birthdate":"1963-10-04T00:00:00","CountryId":"US","CountryName":"United States","DraftYear":1985,"PositionId":"F","PositionName":"Forward","Height":"6-9","Weight":"225","School":"Oregon","Photo":"https://i.pinimg.com/474x/f4/94/12/f494128ef59aac0eb01ac0a12a64472b.jpg","Biography":null},{"Id":1920,"Name":"A.J. Bramlett","Birthdate":"1977-01-10T00:00:00","CountryId":"US","CountryName":"United States","DraftYear":1999,"PositionId":"C","PositionName":"Center","Height":"6-10","Weight":"227","School":"Arizona","Photo":"https://www.thedraftreview.com/history/drafted1999/images/aj-bramlett.jpg","Biography":null},{"Id":76672,"Name":"A.J. English","Birthdate":"1967-07-11T00:00:00","CountryId":"US","CountryName":"United States","DraftYear":1990,"PositionId":"G","PositionName":"Guard","Height":"6-3","Weight":"175","School":"Virginia Union","Photo":"https://dxbhsrqyrr690.cloudfront.net/sidearm.nextgen.sites/ionacollege.sidearmsports.com/images/2015/11/13/RWRIOVYHMGWBXUT.20151113040305.jpg","Biography":null},{"Id":2062,"Name":"A.J. Guyton","Birthdate":"1978-02-12T00:00:00","CountryId":"US","CountryName":"United States","DraftYear":2000,"PositionId":"G","PositionName":"Guard","Height":"6-2","Weight":"185","School":"Indiana","Photo":"https://www.thedraftreview.com/history/drafted2000/images/aj-guyton.jpg","Biography":null},{"Id":1630639,"Name":"A.J. Lawson","Birthdate":"2000-07-15T00:00:00","CountryId":"CA","CountryName":"Canada","DraftYear":2022,"PositionId":"G","PositionName":"Guard","Height":"6-6","Weight":"179","School":"South Carolina","Photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/1630639.png","Biography":null},{"Id":78627,"Name":"A.J. Wynder","Birthdate":"1964-09-11T00:00:00","CountryId":"US","CountryName":"United States","DraftYear":1991,"PositionId":"G","PositionName":"Guard","Height":"6-2","Weight":"180","School":"Fairfield","Photo":"https://celticswire.usatoday.com/wp-content/uploads/sites/39/2020/12/tatum.jpg?w=1000&h=600&crop=1","Biography":null},{"Id":201166,"Name":"Aaron Brooks","Birthdate":"1985-01-14T00:00:00","CountryId":"US","CountryName":"United States","DraftYear":2007,"PositionId":"C","PositionName":"Center","Height":"6-0","Weight":"161","School":"Oregon","Photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/201166.png","Biography":null},{"Id":203932,"Name":"Aaron Gordon","Birthdate":"1995-09-16T00:00:00","CountryId":"US","CountryName":"United States","DraftYear":2014,"PositionId":"F","PositionName":"Forward","Height":"6-8","Weight":"235","School":"Arizona","Photo":"https://cdn.nba.com/headshots/nba/latest/1040x760/203932.png","Biography":null}
+        ];
+
+        const tableBody = document.getElementById("playerTableBody");
+
+        // Create a row for each player and populate the columns with player photos
+        for (let i = 0; i < apiData.length; i += 3) {
+            const row = document.createElement("tr");
+
+            for (let j = 0; j < 3; j++) {
+                const currentIndex = i + j;
+                if (currentIndex < apiData.length) {
+                    const photoCell = document.createElement("td");
+                    const playerImage = document.createElement("img");
+                    playerImage.src = apiData[currentIndex].Photo;
+                    playerImage.alt = apiData[currentIndex].Name + " Photo";
+                    photoCell.appendChild(playerImage);
+
+                    // Append the cell to the row
+                    row.appendChild(photoCell);
+                }
+            }
+
+            // Append the row to the table body
+            tableBody.appendChild(row);
+        }
+    });
+</script>
+
+</body>
+</html>
