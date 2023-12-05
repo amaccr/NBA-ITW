@@ -15,7 +15,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="index.html" tabindex="NBA"><img src="../images/NBA_logoH.png" height="24" /></a>
+            <a class="navbar-brand" href="index.html" tabindex="NBA"><img src="NBALogo.png" height="40" /></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -38,29 +38,30 @@
         </div>
         <!-- ko if:Name().length > 0 -->
         <div class="row border-bottom g-2">
-            <div class="col-2">Game Id</div><div class="col-10" data-bind="text: Id"></div>
-        </div>
-        <div class="row border-bottom g-2">
             <div class="col-2">Name</div><div class="col-10" data-bind="text: Name"></div>
         </div>
         <div class="row border-bottom g-2">
-            <div class="col-2">State</div><div class="col-10"><a class="nav-link" data-bind="text:StateName, attr: { href:'./stateDetails.html?id=' + StateId }" title="Show State Details"></a></div>
+            <div class="col-2">Birthdate</div><div class="col-10" data-bind="text:Birthdate"></div>
         </div>
         <div class="row border-bottom g-2">
-            <div class="col-2">Team</div>
-            <div class="col-10"><a class="nav-link" data-bind="text:'[' + TeamAcronym() + '] ' + TeamName(), attr: { href:'./teamDetails.html?id=' + TeamId }" title="Show Team Details"></a></div>
+            <div class="col-2">CountryId</div>
+            <div class="col-10" data-bind="text:CountryId"></div>
         </div>
         <div class="row border-bottom g-2">
-            <div class="col-2">Location</div><div class="col-10" data-bind="text: Location"></div>
+            <div class="col-2">PositionId</div><div class="col-10" data-bind="text:PositionId"></div>
         </div>
         <div class="row border-bottom g-2">
-            <div class="col-2">Capacity</div><div class="col-10" data-bind="text: Capacity"></div>
+            <div class="col-2">DraftYear</div><div class="col-10" data-bind="text:DraftYear"></div>
         </div>
-        <!-- ko if:Opened().length > 0 -->
         <div class="row border-bottom g-2">
-            <div class="col-2">Opened</div><div class="col-10" data-bind="text: Opened"></div>
+            <div class="col-2">Height</div><div class="col-10" data-bind="text: Height"></div>
         </div>
-        <!-- /ko -->
+        <div class="row border-bottom g-2">
+            <div class="col-2">Weight</div><div class="col-10" data-bind="text:Weight"></div>
+        </div>
+        <div class="row border-bottom g-2">
+            <div class="col-2">School</div><div class="col-10" data-bind="text:School"></div>
+        </div>
         <div class="row border-bottom g-2" data-bind="visible: Photo() != '' && Photo() != null">
             <div class="col-2">Photo</div><div class="small col-10">
                 <img class="img-thumbnail" data-bind="attr:{src: Photo}"><br />
@@ -76,7 +77,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">
-                        <img src="../images/NBA_logoH.png" height="30" /> Loading data...
+                        <img src="NBALogo.png" height="30" /> Loading data...
                     </h5>
                 </div>
                 <div class="modal-body text-center">
