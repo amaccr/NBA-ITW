@@ -40,33 +40,38 @@
         <div class="row border-bottom g-2">
             <div class="col-2">Name</div><div class="col-10" data-bind="text: Name"></div>
         </div>
-        <div class="row border-bottom g-2">
-            <div class="col-2">Logo</div><div class="col-10"><a class="nav-link" data-bind="text:StateName, attr: { href:'./stateDetails.html?id=' + StateId }" title="Show State Details"></a></div>
-        </div>
-        <div class="row border-bottom g-2">
-            <div class="col-2">Team</div>
-            <div class="col-10"><a class="nav-link" data-bind="text:'[' + TeamAcronym() + '] ' + TeamName(), attr: { href:'./teamDetails.html?id=' + TeamId }" title="Show Team Details"></a></div>
-        </div>
-        <div class="row border-bottom g-2">
-            <div class="col-2">Location</div><div class="col-10" data-bind="text: Location"></div>
-        </div>
-        <div class="row border-bottom g-2">
-            <div class="col-2">Capacity</div><div class="col-10" data-bind="text: Capacity"></div>
-        </div>
-        <!-- ko if:Opened().length > 0 -->
-        <div class="row border-bottom g-2">
-            <div class="col-2">Opened</div><div class="col-10" data-bind="text: Opened"></div>
-        </div>
-        <!-- /ko -->
-        <div class="row border-bottom g-2" data-bind="visible: Photo() != '' && Photo() != null">
-            <div class="col-2">Photo</div><div class="small col-10">
-                <img class="img-thumbnail" data-bind="attr:{src: Photo}"><br />
-                <i class="fa fa-link"></i> [<a class="link-dark text-decoration-none" data-bind="attr: { href: Photo }, text: Photo" target="_blank"></a>]
+        <div class="row border-bottom g-2" data-bind="visible: Logo() != '' && Logo() != null">
+            <div class="col-2">Logo</div><div class="small col-10">
+                <img class="img-thumbnail" data-bind="attr:{src: Logo}"><br />
+                <i class="fa fa-link"></i> [<a class="link-dark text-decoration-none" data-bind="attr: { href: Logo }, text: Logo" target="_blank"></a>]
             </div>
+        </div>
+        <div class="row border-bottom g-2">
+            <div class="col-2">City</div>
+            <div class="col-10" data-bind="text: City"></div>
+        </div>
+        <div class="row border-bottom g-2">
+            <div class="col-2">State</div><div class="col-10" data-bind="text: StateName"></div>
+        </div>
+        <div class="row border-bottom g-2">
+            <div class="col-2">Conference</div><div class="col-10" data-bind="text: ConferenceName"></div>
+        </div>
+        <div class="row border-bottom g-2">
+            <div class="col-2">Division</div><div class="col-10" data-bind="text: DivisionName"></div>
+        </div>
+        <div class="row border-bottom g-2">
+            <div class="col-2">History</div><div class="col-10" data-bind="text: History"></div>
+        </div>
+        <div class="row border-bottom g-2">
+            <div class="col-2">Lista de anos de competição</div><div class="col-10" data-bind="text: Seasons"></div>
+        </div>
+        <div class="row border-bottom g-2">
+            <div class="col-2">Lista de Atletas</div><div class="col-1o" data-bind="tex: Players"></div>
         </div>
         <!-- /ko -->
         <a href="./teams.html" class="btn btn-default btn-sm small"><i class="fa fa-list"></i> Back to List</a>
     </div>
+    <!--adiciona aqui a formatação da lista dos jogadores-->
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">

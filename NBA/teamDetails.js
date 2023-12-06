@@ -12,32 +12,30 @@ var vm = function () {
     self.Name = ko.observable('');
     self.Logo = ko.observable('');
     self.City = ko.observable('');
-    self.State = ko.observable('');
-    self.TeamName = ko.observable('');
-    self.TeamAcronym = ko.observable('');
-    self.Location = ko.observable('');
-    self.Capacity = ko.observable('');
-    self.Opened = ko.observable('');
-    self.Photo = ko.observable('');
+    self.StateName = ko.observable('');
+    self.ConferenceName= ko.observable('');
+    self.DivisionName= ko.observable('');
+    self.History= ko.observable('');
+    self.Seasons = ko.observable('');
+    self.Players = ko.observable('');
 
     //--- Page Events
-    self.activate = function (id) {
+    self.activate = function (id, Acronym) {
         console.log('CALL: getTeam...');
-        var composedUri = self.baseUri() + id;
+        var composedUri = self.baseUri() + id + '?Acronym=' + Acronym;
         ajaxHelper(composedUri, 'GET').done(function (data) {
             console.log(data);
             hideLoading();
             self.Id(data.Id);
             self.Name(data.Name);
-            self.StateId(data.StateId);
+            self.Logo(data.Logo);
+            self.City(data.City);
             self.StateName(data.StateName);
-            self.TeamId(data.TeamId);
-            self.TeamName(data.TeamName);
-            self.TeamAcronym(data.TeamAcronym);
-            self.Location(data.Location);
-            self.Capacity(data.Capacity);
-            self.Opened(data.Opened);
-            self.Photo(data.Photo);
+            self.ConferenceName(data.ConferenceName);
+            self.DivisionName(data.DivisionName);
+            self.History(data.History);
+            self.Seasons(data.Seasons);
+            self.Players(data.Players);
         });
     };
 
