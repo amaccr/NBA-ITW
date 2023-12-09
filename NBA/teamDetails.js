@@ -9,6 +9,7 @@ var vm = function () {
     self.passingMessage = ko.observable('');
     //--- Data Record
     self.Id = ko.observable('');
+    self.Acronym = ko.observable('');
     self.Name = ko.observable('');
     self.Logo = ko.observable('');
     self.City = ko.observable('');
@@ -16,26 +17,34 @@ var vm = function () {
     self.ConferenceName= ko.observable('');
     self.DivisionName= ko.observable('');
     self.History= ko.observable('');
-    self.Seasons = ko.observable('');
-    self.Players = ko.observable('');
+    self.Seasons = ko.observableArray([]);
+    self.Players = ko.observableArray([]);
 
     //--- Page Events
-    self.activate = function (id, Acronym) {
+    self.activate = function (id, acronym) {
         console.log('CALL: getTeam...');
-        var composedUri = self.baseUri() + id + '?Acronym=' + Acronym;
+        console.log('Acronym:', acronym)
+        var composedUri = self.baseUri() + id + '?Acronym=' + (acronym || '');
+        console.log(composedUri)
         ajaxHelper(composedUri, 'GET').done(function (data) {
-            console.log(data);
+            console.log('Data received: ', data);
             hideLoading();
-            self.Id(data.Id);
-            self.Name(data.Name);
-            self.Logo(data.Logo);
-            self.City(data.City);
-            self.StateName(data.StateName);
-            self.ConferenceName(data.ConferenceName);
-            self.DivisionName(data.DivisionName);
-            self.History(data.History);
-            self.Seasons(data.Seasons);
-            self.Players(data.Players);
+            if (data) {
+                self.Id(data.Id);
+                self.Acronym(data.Acronym)
+                self.Name(data.Name);
+                self.Logo(data.Logo);
+                self.City(data.City);
+                self.StateName(data.StateName);
+                self.ConferenceName(data.ConferenceName);
+                self.DivisionName(data.DivisionName);
+                self.History(data.History);
+                self.Seasons(data.Seasons);
+                self.Players(data.Players);
+            } else {
+                console.error('Received undefined or null data.')
+            }
+            
         });
     };
 
@@ -85,12 +94,14 @@ var vm = function () {
 
     //--- start ....
     showLoading();
-    var pg = getUrlParameter('id');
-    console.log(pg);
-    if (pg == undefined)
-        self.activate(1);
+    var pgId = getUrlParameter('id');
+    var pgAcronym = getUrlParameter('acronym');
+    console.log('ID: ', pgId);
+    console.log('Acronym: ', pgAcronym);
+    if (pgId == undefined)
+        self.activate(1, 'DEFAULT');
     else {
-        self.activate(pg);
+        self.activate(pgId, pgAcronym);
     }
     console.log("VM initialized!");
 };

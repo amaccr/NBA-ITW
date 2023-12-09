@@ -40,7 +40,7 @@
         <div class="row small">
             <p class=" col-4 mr-auto pt-2">
                 <span data-bind="html: 'Page: ' + currentPage() + ' of ' + totalPages()"></span><br />
-                <span data-bind="html: 'Games: '+ fromRecord() + '-' + toRecord() + ' of ' + totalRecords()"></span>
+                <span data-bind="html: 'Teams: '+ fromRecord() + '-' + toRecord() + ' of ' + totalRecords()"></span>
             </p>
             <div class="col-8 my-0 pt-3">
                 <ul class="pagination float-end">
@@ -78,6 +78,7 @@
                 </tr>
             </thead>
             <tbody data-bind="foreach: records">
+                <!-- ko if: $root.hasDataForHTML($data) -->
                 <tr>
                     <td class="align-middle" data-bind="text:Acronym"></td>
                     <td class="align-middle" data-bind="text:Name"></td>
@@ -86,10 +87,11 @@
                     <td class="align-middle" data-bind="text:DivisionName"></td>
                     <td class="align-middle" data-bind="text:StateName"></td>
                     <td class="text-end">
-                        <a class="btn btn-default btn-light btn-xs" data-bind="attr: { href:'./teamDetails.html?id=' + Id + '?acronym=' + Acronym }"><i class="fa fa-eye" title="Show details"></i></a>
+                        <a class="btn btn-default btn-light btn-xs" data-bind="attr: { href:'./teamDetails.html?id=' + Id + '&acronym=' + Acronym }"><i class="fa fa-eye" title="Show details"></i></a>
                         <button class="btn btn-default btn-xs"><i class="fa fa-heart-o" data-bind="attr : { 'id': 'favourite_' + Id }" title="Add to favorites"></i></button>
                     </td>
                 </tr>
+                <!-- /ko -->
             </tbody>
         </table>
     </div>

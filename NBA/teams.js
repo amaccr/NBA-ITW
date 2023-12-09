@@ -60,6 +60,18 @@ var vm = function () {
         });
     };
 
+    // Function to check if data is present
+    self.hasData = function (record) {
+        return (
+            record.Name !== null && record.Name !== ''
+        );
+    };
+
+    // Function to check if data is present for HTML binding
+    self.hasDataForHTML = function (record) {
+        return self.hasData(record);
+    };
+
     //--- Internal functions
     function ajaxHelper(uri, method, data) {
         self.error(''); // Clear error message

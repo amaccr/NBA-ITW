@@ -34,11 +34,15 @@
     <!-- Work Area-->
     <div class="container">
         <div class="py-2 border-bottom mb-3">
-            <h2 data-bind="text:Name() +' [' + Id() + ']'"></h2>
+            <h2 data-bind="text:Name()"></h2>
         </div>
+        <a href="./teams.html" class="btn btn-default btn-sm small"><i class="fa fa-list"></i> Back to List</a>
         <!-- ko if:Name().length > 0 -->
         <div class="row border-bottom g-2">
             <div class="col-2">Name</div><div class="col-10" data-bind="text: Name"></div>
+        </div>
+        <div class="row border-bottom g-2">
+            <div class="col-2">Acronym</div><div class="col-10" data-bind="text: Acronym"></div>
         </div>
         <div class="row border-bottom g-2" data-bind="visible: Logo() != '' && Logo() != null">
             <div class="col-2">Logo</div><div class="small col-10">
@@ -59,19 +63,45 @@
         <div class="row border-bottom g-2">
             <div class="col-2">Division</div><div class="col-10" data-bind="text: DivisionName"></div>
         </div>
-        <div class="row border-bottom g-2">
+        <div class="row g-2">
             <div class="col-2">History</div><div class="col-10" data-bind="text: History"></div>
         </div>
-        <div class="row border-bottom g-2">
-            <div class="col-2">Lista de anos de competição</div><div class="col-10" data-bind="text: Seasons"></div>
-        </div>
-        <div class="row border-bottom g-2">
-            <div class="col-2">Lista de Atletas</div><div class="col-1o" data-bind="tex: Players"></div>
+        <hr />
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <h4 class="border-bottom pb-2 mb-2">Lista de Atletas</h4>
+                </div>
+                <!-- ko foreach: Players -->
+                <div class="col-6 col-md-4 col-lg-3 mb-3">
+                    <div class="border rounded py-2 px-2 small text-center">
+                        <a data-bind="attr: { href:'./playerDetails.html?id=' + Id }" class="nav-link d-flex flex-column align-items-center text-dark" title="Show Player details" style="color: black;">
+                            <i class="fa fa-user mb-2" style="color: black; font-size: 18px;"></i>
+                            <div data-bind="text: Name" class="font-weight-bold"></div>
+                        </a>
+                    </div>
+                </div>
+                <!-- /ko -->
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-12">
+                    <h4 class="border-bottom pb-2 mb-2">Lista de Anos de Competição</h4>
+                </div>
+                <!-- ko foreach: Seasons -->
+                <div class="col-6 col-md-4 col-lg-3 mb-3">
+                    <div class="border rounded py-2 px-2 small text-center">
+                        <a data-bind="attr: { href:'./seasonDetails.html?id=' + Id }" class="nav-link d-flex flex-column align-items-center text-dark" title="Show Season details" style="color: black;">
+                            <i class="fa fa-calendar-alt mb-2" style="color: black; font-size: 18px;"></i>
+                            <div data-bind="text: Season" class="font-weight-bold"></div>
+                        </a>
+                    </div>
+                </div>
+                <!-- /ko -->
+            </div>
         </div>
         <!-- /ko -->
-        <a href="./teams.html" class="btn btn-default btn-sm small"><i class="fa fa-list"></i> Back to List</a>
     </div>
-    <!--adiciona aqui a formatação da lista dos jogadores-->
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
