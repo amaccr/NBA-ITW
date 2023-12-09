@@ -11,8 +11,8 @@ var vm = function () {
     self.Id = ko.observable('');
     self.Name = ko.observable('');
     self.Birthdate = ko.observable('');
-    self.CountryId = ko.observable('');
-    self.PositionId = ko.observable('');
+    self.CountryName = ko.observable('');
+    self.PositionName = ko.observable('');
     self.DraftYear = ko.observable('');
     self.Height = ko.observable('');
     self.Weight = ko.observable('');
@@ -29,8 +29,8 @@ var vm = function () {
             self.Id(data.Id);
             self.Name(data.Name);
             self.Birthdate(data.Birthdate);
-            self.CountryId(data.CountryId);
-            self.PositionId(data.PositionId);
+            self.CountryName(data.CountryName);
+            self.PositionName(data.PositionName);
             self.DraftYear(data.DraftYear);
             self.Height(data.Height);
             self.Weight(data.Weight);

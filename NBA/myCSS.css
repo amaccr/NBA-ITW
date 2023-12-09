@@ -1,13 +1,42 @@
 ﻿body {
     font-family: 'Open Sans', sans-serif;
     margin: 56px 0 56px 0;
+    background-color: var(--color2);
+}
+
+.navbar {
+    background-color:var(--color1)
+    ;
+}
+
+.navbar-nav .nav-link {
+    color: var(--color2); /* White */
+}
+
+.navbar-nav .fa {
+    color: var(--color2);
+}
+
+#icon {
+    width: 30px;
+    cursor: pointer;
+}
+
+:root {
+    --color1: #1D428A;
+    --color2: #FFFFFF;
+}
+
+.darktheme{
+    --color1: #C8102E;
+    --color2: #1D428A;
 }
 
 /* button default
 ---------------------------- */
 .btn-default {
     color: #333;
-    background-color: #f8f9fa;
+    background-color: var(--color2);
     border-color: #ccc;
 }
 

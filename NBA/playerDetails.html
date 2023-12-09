@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="myCSS.css" />
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
             <a class="navbar-brand" href="index.html" tabindex="NBA"><img src="NBALogo.png" height="40" /></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,45 +32,60 @@
         </div>
     </nav>
     <!-- Work Area-->
-    <div class="container">
-        <div class="py-2 border-bottom mb-3">
-            <h2 data-bind="text:Name() +' [' + Id() + ']'"></h2>
-        </div>
-        <!-- ko if:Name().length > 0 -->
-        <div class="row border-bottom g-2">
-            <div class="col-2">Name</div><div class="col-10" data-bind="text: Name"></div>
-        </div>
-        <div class="row border-bottom g-2">
-            <div class="col-2">Birthdate</div><div class="col-10" data-bind="text:Birthdate"></div>
-        </div>
-        <div class="row border-bottom g-2">
-            <div class="col-2">CountryId</div>
-            <div class="col-10" data-bind="text:CountryId"></div>
-        </div>
-        <div class="row border-bottom g-2">
-            <div class="col-2">PositionId</div><div class="col-10" data-bind="text:PositionId"></div>
-        </div>
-        <div class="row border-bottom g-2">
-            <div class="col-2">DraftYear</div><div class="col-10" data-bind="text:DraftYear"></div>
-        </div>
-        <div class="row border-bottom g-2">
-            <div class="col-2">Height</div><div class="col-10" data-bind="text: Height"></div>
-        </div>
-        <div class="row border-bottom g-2">
-            <div class="col-2">Weight</div><div class="col-10" data-bind="text:Weight"></div>
-        </div>
-        <div class="row border-bottom g-2">
-            <div class="col-2">School</div><div class="col-10" data-bind="text:School"></div>
-        </div>
-        <div class="row border-bottom g-2" data-bind="visible: Photo() != '' && Photo() != null">
-            <div class="col-2">Photo</div><div class="small col-10">
-                <img class="img-thumbnail" data-bind="attr:{src: Photo}"><br />
-                <i class="fa fa-link"></i> [<a class="link-dark text-decoration-none" data-bind="attr: { href: Photo }, text: Photo" target="_blank"></a>]
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Player Photo -->
+            <div class="col-md-4 mb-3">
+                <div class="text-center">
+                    <img class="img-thumbnail rounded" data-bind="attr:{src: Photo}" alt="Player Photo">
+                </div>
+            </div>
+
+            <!-- Player Details -->
+            <div class="col-md-8">
+                <div class="py-2 border-bottom mb-3">
+                    <h2 data-bind="text: Name() +' [' + Id() + ']'"></h2>
+                </div>
+                <!-- Player Detail Rows -->
+                <!-- ko if:Name().length > 0 -->
+                <div class="row border-bottom g-2">
+                    <div class="col-4">Name</div>
+                    <div class="col-8" data-bind="text: Name"></div>
+                </div>
+                <div class="row border-bottom g-2">
+                    <div class="col-4">Birthdate</div>
+                    <div class="col-8" data-bind="text: Birthdate"></div>
+                </div>
+                <div class="row border-bottom g-2">
+                    <div class="col-4">Country</div>
+                    <div class="col-8" data-bind="text: CountryName"></div>
+                </div>
+                <div class="row border-bottom g-2">
+                    <div class="col-4">Position</div>
+                    <div class="col-8" data-bind="text: PositionName"></div>
+                </div>
+                <div class="row border-bottom g-2">
+                    <div class="col-4">Draft Year</div>
+                    <div class="col-8" data-bind="text: DraftYear"></div>
+                </div>
+                <div class="row border-bottom g-2">
+                    <div class="col-4">Height</div>
+                    <div class="col-8" data-bind="text: Height"></div>
+                </div>
+                <div class="row border-bottom g-2">
+                    <div class="col-4">Weight</div>
+                    <div class="col-8" data-bind="text: Weight"></div>
+                </div>
+                <div class="row border-bottom g-2">
+                    <div class="col-4">School</div>
+                    <div class="col-8" data-bind="text: School"></div>
+                </div>
+                <!--/ko-->
+                <a href="./players.html" class="btn btn-default btn-sm mt-3"><i class="fa fa-list"></i> Back to List</a>
             </div>
         </div>
-        <!-- /ko -->
-        <a href="./players.html" class="btn btn-default btn-sm small"><i class="fa fa-list"></i> Back to List</a>
     </div>
+
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
