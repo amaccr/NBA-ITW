@@ -63,10 +63,10 @@ td .nav-link {
     color: var(--colortext);
 }
 
-.icon {
-    color:var(--color1);
+.bloco {
+    color:var(--colortext);
+    background-color: var(--color3);
 }
-
 
 
 

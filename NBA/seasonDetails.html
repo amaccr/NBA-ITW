@@ -37,33 +37,29 @@
         <div class="py-2 border-bottom mb-3">
             <h2 data-bind="text: Season"></h2>
         </div>
-        <div class="row border-bottom g-2">
-            <div class="col-2">Id</div><div class="col-10" data-bind="text: Id"></div>
-        </div>
-        <div class="row border-bottom g-2">
-            <div class="col-2">Season</div><div class="col-10" data-bind="text: Season"></div>
-        </div>
         <a href="./seasons.html" class="btn btn-default btn-sm small"><i class="fa fa-list"></i> Back to List</a>
-    </div>
-    <!-- List of teams Section -->
-    <div class="container-fluid team-list">
-        <div class="row">
-            <div class="col-12">
-                <h4>List of Teams</h4>
-            </div>
-            <!-- ko foreach: Teams -->
-            <div class="col-6 col-md-4 col-lg-3 mb-3">
-                <div class="border rounded py-2 px-2 small text-center">
-                    <a data-bind="attr: { href:'./teamDetails.html?id=' + Id + '&acronym=' + Acronym}" class="nav-link d-flex flex-column align-items-center text-dark"
-                        title="Show Team details" style="color: black;">
-                        <i class="fa fa-user mb-2" style="color: black; font-size: 18px;"></i>
-                        <div data-bind="text: Name" class="font-weight-bold"></div>
-                    </a>
+        <div class="container-fluid team-list">
+            <div class="row">
+                <div class="col-12">
+                    <h4>List of Teams</h4>
                 </div>
+                <!-- List of teams Section -->
+                <!-- ko foreach: Teams -->
+                <div class="col-6 col-md-4 col-lg-3 mb-3">
+                    <div class="border rounded py-2 px-2 small text-center">
+                        <a data-bind="attr: { href:'./teamDetails.html?id=' + Id + '&acronym=' + Acronym}" class="bloco nav-link d-flex flex-column align-items-center text-dark"
+                            title="Show Team details">
+                            <i class="bloco fa fa-user mb-2" style="font-size: 18px;"></i>
+                            <div data-bind="text: Name" class="bloco font-weight-bold"></div>
+                        </a>
+                    </div>
+                </div>
+                <!-- /ko -->
             </div>
-            <!-- /ko -->
         </div>
     </div>
+ 
+    
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -80,10 +76,10 @@
         </div>
     </div>
     <!-- End of Work Area -->
-    <nav class="navbar navbar-light bg-light fixed-bottom">
+    <nav class="navbar navbar-dark fixed-bottom">
         <div class="container small">
             <div class="navbar-text">&copy;  Introdução as Tecnologias Web - 2023/24</div>
-            <div class="navbar-text">Made with <i class="fa fa-heart-o text-danger"></i> for U by <a href="mailto:jsp@ua.pt" class="text-decoration-none text-muted">jsp@ua.pt</a>.</div>
+            <div class="navbar-text">Made with <i class="fa fa-heart"></i> for U by <a href="mailto:jsp@ua.pt" class="text-decoration-none">jsp@ua.pt</a>.</div>
             <div class="navbar-nav">
                 <div class="nav-item text-end"><a href="https://www.ua.pt" class="nav-link">Universidade de Aveiro</a></div>
             </div>

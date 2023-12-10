@@ -39,7 +39,7 @@
             <!-- Team Logo -->
             <div class="col-md-4 mb-3">
                 <div class="text-center">
-                    <img class="img-thumbnail team-logo" data-bind="attr:{src: Logo}" alt="Team Logo">
+                    <img class="img-thumbnail team-logo" data-bind="attr:{src: Logo, alt: Name}" alt="Team Logo">
                 </div>
             </div>
 
@@ -82,8 +82,7 @@
                     to List</a>
             </div>
         </div>
-    </div>
-    <!-- Team Season List Section -->
+        <!-- Team Season List Section -->
         <div class="container-fluid team-list">
             <div class="row">
                 <div class="col-12">
@@ -91,36 +90,39 @@
                 </div>
                 <!-- ko foreach: Seasons -->
                 <div class="col-6 col-md-4 col-lg-3 mb-3">
-                    <div class="border rounded py-2 px-2 small text-center">
-                        <a data-bind="attr: { href:'./seasonDetails.html?id=' + Id }" class="nav-link d-flex flex-column align-items-center text-dark"
-                            title="Show Season details" style="color: black;">
-                            <i class="fa fa-calendar-alt mb-2" style="color: black; font-size: 18px;"></i>
-                            <div data-bind="text: Season" class="font-weight-bold"></div>
+                    <div class="border rounded py-2 px-2 small text-center bloco">
+                        <a data-bind="attr: { href:'./seasonDetails.html?id=' + Id }" class="bloco nav-link d-flex flex-column align-items-center"
+                            title="Show Season details">
+                            <i class="fa fa-book bloco" mb-2" style="font-size: 18px;"></i>
+                            <div data-bind="text: Season" class="bloco font-weight-bold"></div>
                         </a>
                     </div>
                 </div>
                 <!-- /ko -->
             </div>
         </div>
-    <!-- Team Player List Section -->
-    <div class="container-fluid team-list">
-        <div class="row">
-            <div class="col-12">
-                <h4>List of Players</h4>
-            </div>
-            <!-- ko foreach: Players -->
-            <div class="col-6 col-md-4 col-lg-3 mb-3">
-                <div class="border rounded py-2 px-2 small text-center">
-                    <a data-bind="attr: { href:'./playerDetails.html?id=' + Id }" class="nav-link d-flex flex-column align-items-center text-dark"
-                        title="Show Player details" style="color: black;">
-                        <i class="fa fa-user mb-2" style="color: black; font-size: 18px;"></i>
-                        <div data-bind="text: Name" class="font-weight-bold"></div>
-                    </a>
+        <!-- Team Player List Section -->
+        <div class="container-fluid team-list">
+            <div class="row">
+                <div class="col-12">
+                    <h4>List of Players</h4>
                 </div>
+                <!-- ko foreach: Players -->
+                <div class="col-6 col-md-4 col-lg-3 mb-3">
+                    <div class="border rounded py-2 px-2 small text-center bloco">
+                        <a data-bind="attr: { href:'./playerDetails.html?id=' + Id }" class="bloco nav-link d-flex flex-column align-items-center text-dark"
+                            title="Show Player details">
+                            <!--<i class="bloco fa fa-user mb-2" style="font-size: 18px;"></i>-->
+                            <img data-bind="attr: { src: Photo, alt: Id }" style="max-width: 50px; max-height: 50px;">
+                            <div data-bind="text: Name" class="bloco font-weight-bold"></div>
+                        </a>
+                    </div>
+                </div>
+                <!-- /ko -->
             </div>
-            <!-- /ko -->
         </div>
     </div>
+    
 
     
     <!-- Modal -->
@@ -139,10 +141,10 @@
         </div>
     </div>
     <!-- End of Work Area -->
-    <nav class="navbar navbar-light bg-light fixed-bottom">
+    <nav class="navbar navbar-dark fixed-bottom">
         <div class="container small">
             <div class="navbar-text">&copy;  Introdução as Tecnologias Web - 2023/24</div>
-            <div class="navbar-text">Made with <i class="fa fa-heart-o text-danger"></i> for U by <a href="mailto:jsp@ua.pt" class="text-decoration-none text-muted">jsp@ua.pt</a>.</div>
+            <div class="navbar-text">Made with <i class="fa fa-heart"></i> for U by <a href="mailto:jsp@ua.pt" class="text-decoration-none">jsp@ua.pt</a>.</div>
             <div class="navbar-nav">
                 <div class="nav-item text-end"><a href="https://www.ua.pt" class="nav-link">Universidade de Aveiro</a></div>
             </div>
