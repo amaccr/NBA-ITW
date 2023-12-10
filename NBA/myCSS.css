@@ -1,7 +1,24 @@
-﻿body {
+﻿:root {
+    --color1: #cc152d;    /* Dark Red */
+    --color2: #FFFFFF;     /* White */
+    --color3: #d8d8e5;     /* Light Gray */
+    --color4: #8ca4c4;     /* Light Blue */
+    --colortext: #000000;  /* Black Text */
+}
+
+.darktheme {
+    --color1: #041c74;     /* Dark Blue for Dark Theme */
+    --color2: #1c438b;     /* Dark Blue Background for Dark Theme */
+    --color3: #4c6ba4;     /* Dark Blue Accent for Dark Theme */
+    --color4: #7189b5;     /* Accent Color for Dark Theme */
+    --colortext: #FFFFFF;  /* White Text for Dark Theme */
+}
+
+body {
     font-family: 'Open Sans', sans-serif;
     margin: 56px 0 56px 0;
     background-color: var(--color2);
+    color: var(--colortext);
 }
 
 .navbar {
@@ -13,6 +30,16 @@
     color: var(--color2); /* White */
 }
 
+.navbar-toggler-icon {
+    background-color: var(--color2);
+}
+
+/* Add hover effect for navbar links */
+.navbar-nav .nav-link:hover {
+    color: var(--color4);
+}
+
+
 .navbar-nav .fa {
     color: var(--color2);
 }
@@ -22,34 +49,46 @@
     cursor: pointer;
 }
 
-:root {
-    --color1: #1D428A;
-    --color2: #FFFFFF;
+tr {
+    background-color: var(--color3);
+    color: var(--colortext);
 }
 
-.darktheme{
-    --color1: #C8102E;
-    --color2: #1D428A;
+td .nav-link {
+    color: var(--colortext);
 }
+
+.table-secondary th {
+    background-color: var(--color1);
+    color: var(--colortext);
+}
+
+.icon {
+    color:var(--color1);
+}
+
+
+
+
 
 /* button default
 ---------------------------- */
 .btn-default {
     color: #333;
-    background-color: var(--color2);
+    background-color: var(--color4);
     border-color: #ccc;
 }
 
     .btn-default:focus {
         color: #333;
-        background-color: #e6e6e6;
+        background-color: var(--color4);
         border-color: #8c8c8c;
     }
 
     .btn-default:active,
     .btn-default:hover {
         color: #333;
-        background-color: #e6e6e6;
+        background-color: var(--color4);
         border-color: #adadad;
     }
 
@@ -64,4 +103,47 @@
 
 li.page-item a {
     font-size: 0.85rem;
+}
+
+/* Add transition for smoother color changes */
+.navbar, .tr, .table-secondary th, .btn-default {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Update pagination styles */
+.pagination .page-link {
+    color: var(--color2);
+    background-color: var(--color1);
+    border-color: var(--color1);
+}
+
+.pagination .page-link:hover {
+    color: var(--color4);
+    background-color: var(--color3);
+    border-color: var(--color3);
+}
+
+/* Update modal styles */
+.modal-content {
+    background-color: var(--color2);
+    color: var(--colortext);
+}
+
+/* Update footer styles */
+.navbar-dark.fixed-bottom {
+    background-color: var(--color1);
+}
+
+.navbar-text a {
+    color: var(--color2);
+}
+
+/* Add hover effect for footer link */
+.navbar-text a:hover {
+    color: var(--color4);
+}
+
+/* Update button icon color */
+.btn-default .icon {
+    color: var(--color2);
 }
