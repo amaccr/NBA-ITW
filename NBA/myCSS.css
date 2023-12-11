@@ -19,7 +19,21 @@ body {
     margin: 56px 0 56px 0;
     background-color: var(--color2);
     color: var(--colortext);
+    padding-top: 30px;
 }
+
+th:first-of-type {
+    border-top-left-radius: 10px;
+   }
+   th:last-of-type {
+    border-top-right-radius: 10px;
+   }
+   tr:last-of-type td:first-of-type {
+    border-bottom-left-radius: 10px;
+   }
+   tr:last-of-type td:last-of-type {
+    border-bottom-right-radius: 10px;
+   }
 
 .navbar {
     background-color:var(--color1)
@@ -39,10 +53,17 @@ body {
     color: var(--color4);
 }
 
-
 .navbar-nav .fa {
     color: var(--color2);
 }
+
+#searchbar {
+    transition: width 0.4s ease-in-out;
+   }
+   
+   #searchbar:focus {
+    width: 200px;
+   }   
 
 #icon {
     width: 30px;
@@ -147,3 +168,11 @@ li.page-item a {
 .btn-default .icon {
     color: var(--color2);
 }
+
+.ui-autocomplete {
+    background-color: var(--color3);
+    border-radius: 10px;
+    width: 70px;
+    z-index: 1000; /* Adjust this value as needed */
+ }
+ 

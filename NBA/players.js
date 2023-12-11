@@ -42,6 +42,71 @@ var vm = function () {
         return list;
     };
 
+    //Barra de pesquisa
+    self.search = function() {
+        console.log("searching")
+        if ($("#searchbar").val() === "") {
+            showLoading();
+            var pg = getUrlParameter('page');
+            console.log(pg);
+            if (pg == undefined)
+                self.activate(1);
+            else {
+                self.activate(pg);
+            }
+        } else {
+            var changeUrl = 'http://192.168.160.58/NBA/API/Players/Search?q=' + $("#searchbar").val();
+            self.arenaslist = [];
+        ajaxHelper(changeUrl, 'GET').done(function(data) {
+            console.log(data.length)
+            if (data.length == 0) {
+                return alert('No results found')
+            }
+            self.totalPages(1)
+            console.log(data);
+            showLoading();
+            self.records(data);
+            self.totalRecords(data.length);
+            hideLoading();
+            for (var i in data) {
+                self.playerslist.push(data[i]);
+                }
+            });
+            };
+        };
+        self.onEnter = function(d,e) {
+            e.keyCode === 13 && self.search();
+            return true;
+        };
+        
+
+        $("#searchbar").autocomplete({
+            source: function( request, response ) {
+             $.ajax({
+               url: "http://192.168.160.58/NBA/API/Players/",
+               dataType: "json",
+               data: {
+                 q: request.term
+               },
+               success: function( data ) {
+                 var playerNames = data.Records.map(function(record) {
+                   return record.Name;
+                 });
+                 var filteredNames = $.ui.autocomplete.filter(playerNames, request.term);
+                 response( filteredNames );
+               }
+             });
+            },
+            minLength: 1,
+            select: function( event, ui ) {
+             log( "Selected: " + ui.item.value + " aka " + ui.item.id );
+            },
+            messages: {
+                noResults: '',
+                results: function() {}
+              }
+           }); 
+
     //--- Page Events
     self.activate = function (id) {
         console.log('CALL: getPlayers...');

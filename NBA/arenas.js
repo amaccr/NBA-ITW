@@ -41,7 +41,9 @@ var vm = function () {
             list.push(i + step);
         return list;
     };
-    self.search = function() { // mudar isto !!!!!!!!!!!!!
+
+    //Barra de pesquisa
+    self.search = function() {
         console.log("searching")
         if ($("#searchbar").val() === "") {
             showLoading();
@@ -76,7 +78,36 @@ var vm = function () {
             e.keyCode === 13 && self.search();
             return true;
         };
+        
 
+        $("#searchbar").autocomplete({
+            source: function( request, response ) {
+             $.ajax({
+               url: "http://192.168.160.58/NBA/API/Arenas/",
+               dataType: "json",
+               data: {
+                 q: request.term
+               },
+               success: function( data ) {
+                 var arenaNames = data.Records.map(function(record) {
+                   return record.Name;
+                 });
+                 var filteredNames = $.ui.autocomplete.filter(arenaNames, request.term);
+                 response( filteredNames );
+               }
+             });
+            },
+            minLength: 1,
+            select: function( event, ui ) {
+             log( "Selected: " + ui.item.value + " aka " + ui.item.id );
+            },
+            messages: {
+                noResults: '',
+                results: function() {}
+              }
+           }); 
+                 
+           
     //--- Page Events
     self.activate = function (id) {
         console.log('CALL: getArenas...');
