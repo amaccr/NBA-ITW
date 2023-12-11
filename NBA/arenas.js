@@ -41,6 +41,41 @@ var vm = function () {
             list.push(i + step);
         return list;
     };
+    self.search = function() { // mudar isto !!!!!!!!!!!!!
+        console.log("searching")
+        if ($("#searchbar").val() === "") {
+            showLoading();
+            var pg = getUrlParameter('page');
+            console.log(pg);
+            if (pg == undefined)
+                self.activate(1);
+            else {
+                self.activate(pg);
+            }
+        } else {
+            var changeUrl = 'http://192.168.160.58/NBA/API/Arenas/Search?q=' + $("#searchbar").val();
+            self.arenaslist = [];
+        ajaxHelper(changeUrl, 'GET').done(function(data) {
+            console.log(data.length)
+            if (data.length == 0) {
+                return alert('No results found')
+            }
+            self.totalPages(1)
+            console.log(data);
+            showLoading();
+            self.records(data);
+            self.totalRecords(data.length);
+            hideLoading();
+            for (var i in data) {
+                self.arenaslist.push(data[i]);
+                }
+            });
+            };
+        };
+        self.onEnter = function(d,e) {
+            e.keyCode === 13 && self.search();
+            return true;
+        };
 
     //--- Page Events
     self.activate = function (id) {
