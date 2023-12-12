@@ -56,7 +56,7 @@ var vm = function () {
             }
         } else {
             var changeUrl = 'http://192.168.160.58/NBA/API/Players/Search?q=' + $("#searchbar").val();
-            self.arenaslist = [];
+            self.playerslist = [];
         ajaxHelper(changeUrl, 'GET').done(function(data) {
             console.log(data.length)
             if (data.length == 0) {
@@ -73,39 +73,42 @@ var vm = function () {
                 }
             });
             };
-        };
+    };
         self.onEnter = function(d,e) {
             e.keyCode === 13 && self.search();
             return true;
         };
-        
 
-        $("#searchbar").autocomplete({
-            source: function( request, response ) {
-             $.ajax({
-               url: "http://192.168.160.58/NBA/API/Players/",
-               dataType: "json",
-               data: {
-                 q: request.term
-               },
-               success: function( data ) {
-                 var playerNames = data.Records.map(function(record) {
-                   return record.Name;
-                 });
-                 var filteredNames = $.ui.autocomplete.filter(playerNames, request.term);
-                 response( filteredNames );
-               }
-             });
-            },
-            minLength: 1,
-            select: function( event, ui ) {
-             log( "Selected: " + ui.item.value + " aka " + ui.item.id );
-            },
-            messages: {
-                noResults: '',
-                results: function() {}
-              }
-           }); 
+    $.ui.autocomplete.filter = function (array, term) {
+    var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(term), "i");
+    return $.grep(array, function (value) {
+        return matcher.test(value.label || value.value || value);
+    });
+    };
+
+    $("#searchbar").autocomplete({
+    source: function( request, response ) {
+        $.ajax({
+        url: "http://192.168.160.58/NBA/API/Players/Search?q=" + request.term,
+        dataType: "json",
+        success: function( data ) {
+            var playerNames = data.map(function(record) {
+            return record.Name;
+            });
+            var filteredNames = $.ui.autocomplete.filter(playerNames, request.term);
+            response( filteredNames );
+        }
+        });
+    },
+    minLength: 1,
+    select: function( event, ui ) {
+        log( "Selected: " + ui.item.value + " aka " + ui.item.id );
+    },
+    messages: {
+        noResults: '',
+        results: function() {}
+        }
+    }); 
 
     //--- Page Events
     self.activate = function (id) {
@@ -173,7 +176,11 @@ var vm = function () {
             }
         }
     };
-
+    //todo : CRIAS OUTRA PAGINA
+    //  Alteras page para search
+    // quando clicas no enter das redirect
+    // para essa nova pagina
+    // Tirar a paginacao 
     //--- start ....
     showLoading();
     var pg = getUrlParameter('page');
