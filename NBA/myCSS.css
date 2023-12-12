@@ -174,5 +174,32 @@ li.page-item a {
     border-radius: 10px;
     width: 70px;
     z-index: 1000; /* Adjust this value as needed */
+    max-height: 200px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+    /* add padding to account for vertical scrollbar */
+    padding-right: 20px;
  }
  
+ul.ui-autocomplete {
+    list-style: none;
+    list-style-type: none;
+    padding: 5px;
+    margin: 0px;
+}
+
+.ui-autocomplete::-webkit-scrollbar {
+    width: 12px; /* width of the entire scrollbar */
+   }
+   
+   .ui-autocomplete::-webkit-scrollbar-track {
+    background: var(--color4); /* color of the tracking area */
+    border-radius: 10px;
+   }
+   
+   .ui-autocomplete::-webkit-scrollbar-thumb {
+    background-color: var(--color1); /* color of the scroll thumb */
+    border-radius: 20px; /* roundness of the scroll thumb */
+    border: 3px solid --color4; /* creates padding around scroll thumb */
+   }

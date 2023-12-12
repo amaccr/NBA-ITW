@@ -131,6 +131,100 @@ var vm = function () {
         self.activate(pg);
     }
     console.log("VM initialized!");
+
+    //Barra de pesquisa
+    self.search = function() {
+        console.log("searching")
+        if ($("#searchbar").val() === "") {
+            showLoading();
+            var pg = getUrlParameter('page');
+            console.log(pg);
+            if (pg == undefined)
+                self.activate(1);
+            else {
+                self.activate(pg);
+            }
+        } else {
+            var changeUrl = 'http://192.168.160.58/NBA/API/Teams/Search?q=' + $("#searchbar").val();
+            self.teamslist = [];
+            ajaxHelper(changeUrl, 'GET').done(function(data) {
+            console.log(data.length)
+            if (data.length == 0) {
+                return alert('No results found')
+            }
+            var term = $("#searchbar").val().toLowerCase();
+            var filteredData = data.filter(function(record) {
+                return record.Name.toLowerCase().includes(term);
+            }).sort(function(a, b) {
+                if (a.Name.toLowerCase().startsWith(term)) {
+                    return -1;
+                }
+                if (b.Name.toLowerCase().startsWith(term)) {
+                    return 1;
+                }
+                return 0;
+            })
+            self.totalPages(1)
+            console.log(filteredData);
+            showLoading();
+            self.records(filteredData);
+            self.totalRecords(filteredData.length);
+            hideLoading();
+            for (var i in filteredData) {
+                self.teamslist.push(filteredData[i]);
+            }
+            });
+        };
+    };
+        self.onEnter = function(d,e) {
+            e.keyCode === 13 && self.search();
+            return true;
+        };
+
+    $.ui.autocomplete.filter = function (array, term) {
+    var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(term), "i");
+    return $.grep(array, function (value) {
+        return matcher.test(value.label || value.value || value);
+    });
+    };
+
+    $("#searchbar").autocomplete({
+    source: function( request, response ) {
+        $.ajax({
+        url: "http://192.168.160.58/NBA/API/Teams/Search?q=" + request.term,
+        dataType: "json",
+        success: function( data ) {
+            var teamNames = data.map(function(record) {
+            return record.Name;
+            });
+            var filteredNames = $.ui.autocomplete.filter(teamNames, request.term);
+            response( filteredNames );
+        }
+        });
+    },
+    minLength: 1,
+    select: function( event, ui ) {
+        log( "Selected: " + ui.item.value + " aka " + ui.item.id );
+    },
+    messages: {
+        noResults: '',
+        results: function() {}
+        }
+    });
+
+    //Favourites
+    fetch('http://192.168.160.58/NBA/API/Teams')
+    .then(response => response.json())
+    .then(data => {
+        for(let team of data) {
+            // Add an event listener to the heart button of each team
+            document.getElementById('favourite_' + team.id).addEventListener('click', function() {
+                this.classList.toggle('fa-heart');
+                this.classList.toggle('fa-heart-o');
+            });
+        }
+    });
+
 };
 
 $(document).ready(function () {

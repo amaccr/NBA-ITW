@@ -64,7 +64,15 @@ var vm = function () {
             }
             var term = $("#searchbar").val().toLowerCase();
             var filteredData = data.filter(function(record) {
-                return record.Name.toLowerCase().startsWith(term);
+                return record.Name.toLowerCase().includes(term);
+            }).sort(function(a, b) {
+                if (a.Name.toLowerCase().startsWith(term)) {
+                    return -1;
+                }
+                if (b.Name.toLowerCase().startsWith(term)) {
+                    return 1;
+                }
+                return 0;
             });
             self.totalPages(1)
             console.log(filteredData);
@@ -78,6 +86,7 @@ var vm = function () {
             });
         };
     };
+
     self.onEnter = function(d,e) {
         e.keyCode === 13 && self.search();
         return true;

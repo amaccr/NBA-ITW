@@ -34,8 +34,17 @@
     </nav>
     <!-- Working Area -->
     <div class="container">
-        <div class="border-bottom py-2 mb-2">
+        <div class="row border-bottom" style = "display: flex; justify-content: space-between;">
+            <div class="py-2 mb-2">
             <h2 data-bind="text:displayName"></h2>
+            </div>
+            <div class="py-2 mb-2">
+                <input type="text" placeholder="Search for a team" id="searchbar" class="autocomplete" list="teams" style="border-radius: 10px;" data-bind="event: {keypress: onEnter}" >
+                <datalist id="teams">
+                    <!-- Options will be dynamically generated in JavaScript -->
+                </datalist>
+                <button style="margin-left: 1px;" class="fa fa-search btn" id="playerSearchbar" type="submit" data-bind="click: search"></button>
+            </div>  
         </div>
         <!-- ko if:records().length > 0 -->
         <div class="row small">
@@ -116,6 +125,7 @@
         </div>
     </nav>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.min.js"></script>
     <script src="navbar.js"></script>
