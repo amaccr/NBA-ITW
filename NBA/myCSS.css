@@ -1,5 +1,5 @@
 ﻿:root {
-    --color1: #cc152d;    /* Dark Red */
+    --color1: #7e5b60;    /* Dark Red */
     --color2: #FFFFFF;     /* White */
     --color3: #d8d8e5;     /* Light Gray */
     --color4: #8ca4c4;     /* Light Blue */
@@ -8,7 +8,7 @@
 
 .darktheme {
     --color1: #041c74;     /* Dark Blue for Dark Theme */
-    --color2: #1c438b;     /* Dark Blue Background for Dark Theme */
+    --color2: #1c438b8d;     /* Dark Blue Background for Dark Theme */
     --color3: #4c6ba4;     /* Dark Blue Accent for Dark Theme */
     --color4: #7189b5;     /* Accent Color for Dark Theme */
     --colortext: #FFFFFF;  /* White Text for Dark Theme */
@@ -89,7 +89,21 @@ td .nav-link {
     background-color: var(--color3);
 }
 
+/*favorites*/
+.card {
+    margin: 20px 0;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
 
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.card-body {
+    padding: 2em;
+    text-align: center;
+}
 
 
 /* button default
