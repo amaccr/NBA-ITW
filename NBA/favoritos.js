@@ -52,7 +52,6 @@ $(document).ready(function () {
 
     console.log(fav);
 
-
     for (const i of fav) {
         console.log(i);
 

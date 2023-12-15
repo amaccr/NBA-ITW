@@ -23,6 +23,7 @@ function ajaxHelper(uri, method, data) {
             keyboard: false
         });
     }
+    
     function hideLoading() {
         $('#myModal').on('shown.bs.modal', function (e) {
             $("#myModal").modal('hide');
