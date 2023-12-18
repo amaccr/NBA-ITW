@@ -41,8 +41,9 @@ var vm = function () {
             list.push(i + step);
         return list;
     };
+    self.favourites = ko.observableArray([]);
 
-    //Toggle dos favoritos
+    //Favourites
     self.toggleFavourite = function (id) {
         if (self.favourites.indexOf(id) == -1) {
             self.favourites.push(id);
@@ -50,12 +51,12 @@ var vm = function () {
         else {
             self.favourites.remove(id);
         }
-        localStorage.setItem("fav2", JSON.stringify(self.favourites()));
+        localStorage.setItem("fav", JSON.stringify(self.favourites()));
     };
     self.SetFavourites = function () {
         let storage;
         try {
-            storage = JSON.parse(localStorage.getItem("fav2"));
+            storage = JSON.parse(localStorage.getItem("fav"));
         }
         catch (e) {
             ;
@@ -64,7 +65,7 @@ var vm = function () {
             self.favourites(storage);
         }
     }
-    self.favourites = ko.observableArray([]);
+
 
     //Barra de pesquisa
     self.search = function() {
@@ -166,7 +167,7 @@ var vm = function () {
             self.pagesize(data.PageSize)
             self.totalPages(data.TotalPages);
             self.totalRecords(data.TotalRecords);
-            //self.SetFavourites();
+            self.SetFavourites();
         });
     };
 

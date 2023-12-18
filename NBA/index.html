@@ -39,23 +39,52 @@
             .carousel-item:nth-child(5) {
                 background-image: url('https://cdn.nba.com/manage/2023/11/GettyImages-1790167479-1-1568x882.jpg');
             }
+
+            .carousel-control-prev, .carousel-control-next {
+                background: transparent;
+                border: none;
+            }
+
+            .carousel-control-prev-icon, .carousel-control-next-icon {
+                background-image: none;
+                outline: none;
+                border: none;
+            }
+
+            .carousel-control-prev-icon:after, .carousel-control-next-icon:after {
+                content: '‹';
+                font-size: 55px;
+                color: rgba(255, 255, 255, 0.5);
+            }
+
+            .carousel-control-next-icon:after {
+                content: '›';
+            }
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="index.html" tabindex="NBA"><img src="NBALogo.png" height="24" /></a>
+            <a class="navbar-brand" href="index.html" tabindex="NBA"><img src="NBALogo.png" height="40" /></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link" aria-current="page" href="arenas.html"><i class="fa fa-soccer-ball-o"></i> Arenas</a></li>
-                    <li class="nav-item"><a class="nav-link" aria-current="page" href="players.html"><i class="fa fa-user"></i> Players</a></li>
-                    <li class="nav-item"><a class="nav-link" aria-current="page" href="teams.html"><i class="fa fa-flag"></i> Teams</a></li>
-                    <li class="nav-item"><a class="nav-link" aria-current="page" href="states.html"><i class="fa fa-map-marker"></i> States</a></li>
-                    <li class="nav-item"><a class="nav-link" aria-current="page" href="seasons.html"><i class="fa fa-bookmark"></i> Seasons</a></li>
-                    <li class="nav-item"><a class="nav-link" aria-current="page" href="xxx.html"><i class="fa fa-magic" title="The party continues..."></i> &middot;&middot;&middot;</a></li>
+                    <li class="nav-item"><a class="nav-link" aria-current="page" href="arenas.html" title="Arenas"><i class="fa fa-soccer-ball-o "></i> Arenas</a></li>
+                    <li class="nav-item"><a class="nav-link" aria-current="page" href="players.html" title="Players"><i class="fa fa-user "></i> Players</a></li>
+                    <li class="nav-item"><a class="nav-link" aria-current="page" href="teams.html" title="Teams"><i class="fa fa-flag"></i> Teams</a></li>
+                    <li class="nav-item"><a class="nav-link" aria-current="page" href="states.html" title="States"><i class="fa fa-map-marker"></i> States</a></li>
+                    <li class="nav-item"><a class="nav-link" aria-current="page" href="seasons.html" title="Seasons"><i class="fa fa-bookmark"></i> Seasons</a></li>
+                    <li class="nav-item"><a class="nav-link" aria-current="page" href="favoritos.html" title="Favoritos"><i class="fa fa-heart"></i> Favorites</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-folder-open">Statistics</i>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="NumPlayersBySeason.html"><i class="fa fa-bar-chart"></i>Players By Season</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <img src="moon.png" id="icon">
@@ -106,6 +135,22 @@
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>
+        </div>
+        <!-- Latest News -->
+        <div class="container mt-5">
+            <h1 class="mb-4">Latest News</h1>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="kobe-lakers.jpg" class="card-img-top" alt="News 1">
+                        <div class="card-body">
+                            <h5 class="card-title">Kobe Bryant dies</h5>
+                            <p class="card-text">Famous NBA player dies tragically on a helicopter accident!</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more news cards here -->
+            </div>
         </div>
         <p>
             The National Basketball Association (NBA) is a professional basketball league in North America composed of 30 teams (29 in the United States and 1 in Canada). It is one of the major professional sports leagues in the United States and Canada and is considered the premier professional basketball league in the world.

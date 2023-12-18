@@ -1,7 +1,7 @@
 function vm() {
     const self = this;
     // Define your observables and methods here
-    self.baseUri = ko.observable('http://192.168.160.58/NBA/API/Arenas/');
+    self.baseUri = ko.observable('http://192.168.160.58/NBA/API/Players/');
     self.records = ko.observableArray([]);
     self.currentPage = ko.observable();
     self.hasNext = ko.observable();
@@ -77,17 +77,17 @@ function hideLoading() {
 
 
     function removeFav(Id) {
-        console.log("remove fav")
-        $("#fav-" + Id).remove();
+        console.log("remove favPlayers")
+        $("#favPlayers-" + Id).remove();
 
-        let fav = JSON.parse(localStorage.fav || '[]');
+        let favPlayers = JSON.parse(localStorage.favPlayers || '[]');
 
-        const index = fav.indexOf(Id);
+        const index = favPlayers.indexOf(Id);
 
         if (index != -1)
-            fav.splice(index, 1);
+            favPlayers.splice(index, 1);
 
-        localStorage.setItem("fav", JSON.stringify(fav));
+        localStorage.setItem("favPlayers", JSON.stringify(favPlayers));
     };
 
 
@@ -109,27 +109,27 @@ $(document).ajaxComplete(function (event, xhr, options) {
 $(document).ready(function () {
     showLoading();
 
-    let fav = JSON.parse(localStorage.fav || '[]');
+    let favPlayers = JSON.parse(localStorage.favPlayers || '[]');
 
-    console.log(fav);
+    console.log(favPlayers);
 
     (async function() {
-        for (const Id of fav) {
+        for (const Id of favPlayers) {
             console.log(Id);
             await sleep(1000);
-            ajaxHelper('http://192.168.160.58/NBA/API/Arenas/' + Id, 'GET').done(function (data) {
+            ajaxHelper('http://192.168.160.58/NBA/API/Players/' + Id, 'GET').done(function (data) {
                 console.log(data)
-                if (localStorage.fav && localStorage.fav.length != 0) {
+                if (localStorage.favPlayers && localStorage.favPlayers.length != 0) {
                     $("#table-favourites").show();
                     $('#noadd').hide();
                     $('#nofav').hide();
                     $("#table-favourites").append(
-                        `<tr id="fav-${Id}">
+                        `<tr id="favPlayers-${Id}">
                             <td class="align-middle"><img class="card-image" style="width:100px;height:100px" src="${data.Photo}"></td>
                             <td class="align-middle">${data.Name}</td>
-                            <td class="align-middle">${data.StateName}</td>
-                            <td class="align-middle">${data.TeamName}</td>
-                            <td class="align-middle">${data.Location}</td>
+                            <td class="align-middle">${data.BirthDate}</td>
+                            <td class="align-middle">${data.DraftYear}</td>
+                            <td class="align-middle">${data.Height}</td>
                             <td class="text-end align-middle">
                                 <a class="btn btn-default btn-sm btn-favourite" onclick="removeFav(${Id})"><i class="fa fa-heart text-danger" title="Selecione para remover dos favoritos"></i></a>
                             </td>
@@ -139,6 +139,6 @@ $(document).ready(function () {
                 }
             });
         }
+        hideLoading();
     })();
-    hideLoading();
 })

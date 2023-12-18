@@ -19,6 +19,7 @@ var vm = function () {
     self.History= ko.observable('');
     self.Seasons = ko.observableArray([]);
     self.Players = ko.observableArray([]);
+    self.VisiblePlayers = ko.observableArray([]);
 
     //--- Page Events
     self.activate = function (id, acronym) {
@@ -41,11 +42,27 @@ var vm = function () {
                 self.History(data.History);
                 self.Seasons(data.Seasons);
                 self.Players(data.Players);
+                self.VisiblePlayers(self.Players().slice(0, 10));
+                // Show the "Show More" button if there are more than 15 players
+                if (self.Players().length > 10) {
+                    document.getElementById('showMore').style.display = 'block';
+                }
             } else {
                 console.error('Received undefined or null data.')
             }
             
         });
+    };
+
+    // Add a new function to show more players
+    self.showMore = function () {
+        var nextPlayers = self.Players().slice(self.VisiblePlayers().length, self.VisiblePlayers().length + 5);
+        self.VisiblePlayers(self.VisiblePlayers().concat(nextPlayers));
+
+        // Hide the "Show More" button if all players are displayed
+        if (self.VisiblePlayers().length === self.Players().length) {
+            document.getElementById('showMore').style.display = 'none';
+        }
     };
 
     //--- Internal functions
@@ -108,7 +125,13 @@ var vm = function () {
 
 $(document).ready(function () {
     console.log("document.ready!");
-    ko.applyBindings(new vm());
+    var viewModel = new vm();
+    ko.applyBindings(viewModel);
+
+    // Add an event listener to the "Show More" button
+    document.getElementById('showMore').addEventListener('click', function () {
+        viewModel.showMore();
+    });
 });
 
 $(document).ajaxComplete(function (event, xhr, options) {

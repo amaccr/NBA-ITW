@@ -19,6 +19,8 @@ var vm = function () {
     self.Capacity = ko.observable('');
     self.Opened = ko.observable('');
     self.Photo = ko.observable('');
+    self.Lat = ko.observable('');
+    self.Lon = ko.observable('');
 
     //--- Page Events
     self.activate = function (id) {
@@ -38,8 +40,28 @@ var vm = function () {
             self.Capacity(data.Capacity);
             self.Opened(data.Opened);
             self.Photo(data.Photo);
+            self.Lat(data.Lat);
+            self.Lon(data.Lon);
+
+            var map = L.map('map', {
+                fullscreenControl: true,
+                fullscreenControlOptions: {
+                    position: 'topleft'
+                }
+            }).setView([self.Lat(), self.Lon()], 13);
+        
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+        
+            
+            L.marker([self.Lat(), self.Lon()]).addTo(map);
+
         });
     };
+
+
+    
 
     //--- Internal functions
     function ajaxHelper(uri, method, data) {
@@ -85,6 +107,8 @@ var vm = function () {
         }
     };
 
+
+
     //--- start ....
     showLoading();
     var pg = getUrlParameter('id');
@@ -100,8 +124,13 @@ var vm = function () {
 $(document).ready(function () {
     console.log("document.ready!");
     ko.applyBindings(new vm());
+    
+    
 });
 
 $(document).ajaxComplete(function (event, xhr, options) {
     $("#myModal").modal('hide');
 })
+$("document").ready(function () {
+    
+});

@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <link rel="stylesheet" href="myCSS.css" />
 </head>
 <body>
@@ -26,50 +28,43 @@
                     <li class="nav-item"><a class="nav-link" aria-current="page" href="teams.html"><i class="fa fa-flag-o"></i> Teams</a></li>
                     <li class="nav-item"><a class="nav-link" aria-current="page" href="states.html"><i class="fa fa-map-marker"></i> States</a></li>
                     <li class="nav-item"><a class="nav-link" aria-current="page" href="seasons.html"><i class="fa fa-bookmark-o"></i> Seasons</a></li>
-                    <li class="nav-item"><a class="nav-link" aria-current="page" href="xxx.html"><i class="fa fa-magic" title="The party continues..."></i> &middot;&middot;&middot;</a></li>
+                    <li class="nav-item"><a class="nav-link" aria-current="page" href="favoritos.html" title="Favoritos"><i class="fa fa-heart"></i> Favorites</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-folder-open">Statistics</i>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="NumPlayersBySeason.html"><i class="fa fa-bar-chart"></i>Players By Season</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <img src="moon.png" id="icon">
         </div>
     </nav>
     <!-- Work Area-->
-    <div class="container">
-        <div class="py-2 border-bottom mb-3">
-            <h2 data-bind="text:Name() +' [' + Id() + ']'"></h2>
-        </div>
-        <!-- ko if:Name().length > 0 -->
-        <div class="row border-bottom g-2">
-            <div class="col-2">Game Id</div><div class="col-10" data-bind="text: Id"></div>
-        </div>
-        <div class="row border-bottom g-2">
-            <div class="col-2">Name</div><div class="col-10" data-bind="text: Name"></div>
-        </div>
-        <div class="row border-bottom g-2">
-            <div class="col-2">State</div><div class="col-10"><a class="nav-link" data-bind="text:StateName, attr: { href:'./stateDetails.html?id=' + StateId }" title="Show State Details"></a></div>
-        </div>
-        <div class="row border-bottom g-2">
-            <div class="col-2">Team</div>
-            <div class="col-10"><a class="nav-link" data-bind="text:'[' + TeamAcronym() + '] ' + TeamName(), attr: { href:'./teamDetails.html?id=' + TeamId }" title="Show Team Details"></a></div>
-        </div>
-        <div class="row border-bottom g-2">
-            <div class="col-2">Location</div><div class="col-10" data-bind="text: Location"></div>
-        </div>
-        <div class="row border-bottom g-2">
-            <div class="col-2">Capacity</div><div class="col-10" data-bind="text: Capacity"></div>
-        </div>
-        <!-- ko if:Opened().length > 0 -->
-        <div class="row border-bottom g-2">
-            <div class="col-2">Opened</div><div class="col-10" data-bind="text: Opened"></div>
-        </div>
-        <!-- /ko -->
-        <div class="row border-bottom g-2" data-bind="visible: Photo() != '' && Photo() != null">
-            <div class="col-2">Photo</div><div class="small col-10">
-                <img class="img-thumbnail" data-bind="attr:{src: Photo}"><br />
-                <i class="fa fa-link"></i> [<a class="link-dark text-decoration-none" data-bind="attr: { href: Photo }, text: Photo" target="_blank"></a>]
+    
+
+    <div class="container mt-5">
+        <a href="./arenas.html" class="btn btn-default btn-sm mt-3"><i class="fa fa-list"></i> Back to List</a>
+        <div class="row">
+            <div class="col-lg-6">
+                <h2 data-bind="text: Name"></h2>
+                <p><strong>Location:</strong> <span data-bind="text: Location"></span></p>
+                <p><strong>Opened:</strong> <span data-bind="text: Opened"></span></p>
+                <p><strong>Capacity:</strong> <span data-bind="text: Capacity"></span></p>
+                <p><strong>Team:</strong> <span data-bind="text: TeamName"></span></p>
+                <p><strong>State:</strong> <span data-bind="text: StateName"></span></p>
+            </div>
+            <div class="col-lg-6">
+                <img data-bind="attr: { src: Photo }" class="img-fluid" alt="Arena image" style="border-radius: 15px;">
             </div>
         </div>
-        <!-- /ko -->
-        <a href="./arenas.html" class="btn btn-default btn-sm small"><i class="fa fa-list"></i> Back to List</a>
+        <div class="row mt-5">
+            <div class="col-lg-12">
+                <div id="map" style="height: 400px; border-radius: 15px;"></div>
+            </div>
+        </div>
     </div>
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -90,7 +85,7 @@
     <nav class="navbar navbar-dark fixed-bottom">
         <div class="container small">
             <div class="navbar-text">&copy;  Introdução as Tecnologias Web - 2023/24</div>
-            <div class="navbar-text">Made with <i class="fa fa-heart"></i> for U by <a href="mailto:jsp@ua.pt" class="text-decoration-none">jsp@ua.pt</a>.</div>
+            <div class="navbar-text">Made with <i class="fa fa-heart"></i> for ITW by Margarida e Tiago</div>
             <div class="navbar-nav">
                 <div class="nav-item text-end"><a href="https://www.ua.pt" class="nav-link">Universidade de Aveiro</a></div>
             </div>
