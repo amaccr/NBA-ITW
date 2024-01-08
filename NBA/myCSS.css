@@ -120,11 +120,15 @@ td .nav-link {
         border-color: #8c8c8c;
     }
 
-    .btn-default:active,
     .btn-default:hover {
         color: #333;
         background-color: var(--color4);
         border-color: #adadad;
+    }
+
+    .active {
+        background-color:#937676;
+        border-radius: 5px;
     }
 
 /* button-xs
