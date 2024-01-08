@@ -1,10 +1,10 @@
-﻿// ViewModel KnockOut
+// ViewModel KnockOut
 var vm = function () {
     console.log('ViewModel initiated...');
     //---Variáveis locais
     var self = this;
-    self.baseUri = ko.observable('http://192.168.160.58/NBA/API/Seasons');
-    self.displayName = 'NBA Seasons List';
+    self.baseUri = ko.observable('http://192.168.160.58/NBA/API/Teams');
+    self.displayName = 'NBA Teams List';
     self.error = ko.observable('');
     self.passingMessage = ko.observable('');
     self.records = ko.observableArray([]);
@@ -43,45 +43,68 @@ var vm = function () {
     };
     self.favourites = ko.observableArray([]);
 
-    //Favourites
-    self.toggleFavourite = function (id) {
-        if (self.favourites.indexOf(id) == -1) {
-            self.favourites.push(id);
+    self.removeFav = function(id) {
+        // Find the favourite with the given ID
+        var favourite = self.favourites().find(function(favTeams) {
+            return favTeams.Id === id;
+        });
+    
+        // Remove the favourite from the array
+        if (favourite) {
+            self.favourites.remove(favourite);
         }
-        else {
-            self.favourites.remove(id);
+    
+        // Update the local storage
+        var favTeams = JSON.parse(localStorage.favTeams || '[]');
+        var index = favTeams.indexOf(id);
+        if (index !== -1) {
+            favTeams.splice(index, 1);
         }
-        localStorage.setItem("favSeasons", JSON.stringify(self.favourites()));
+        localStorage.favTeams = JSON.stringify(favTeams);
     };
-    self.SetFavourites = function () {
-        let storage;
-        try {
-            storage = JSON.parse(localStorage.getItem("favSeasons"));
-        }
-        catch (e) {
-            ;
-        }
-        if (Array.isArray(storage)) {
-            self.favourites(storage);
-        }
-    }
 
     //--- Page Events
-    self.activate = function (id) {
-        console.log('CALL: getSeasons...');
-        var composedUri = self.baseUri() + "?page=" + id + "&pageSize=" + self.pagesize();
-        ajaxHelper(composedUri, 'GET').done(function (data) {
-            console.log(data);
+    self.activate = async function () {
+        console.log('CALL: getTeams...');
+
+        // Retrieve the list of favorite arenas from local storage
+        var favTeams = JSON.parse(localStorage.favTeams || '[]');
+
+        if (favTeams.length === 0) {
             hideLoading();
-            self.records(data.Records);
-            self.currentPage(data.CurrentPage);
-            self.hasNext(data.HasNext);
-            self.hasPrevious(data.HasPrevious);
-            self.pagesize(data.PageSize)
-            self.totalPages(data.TotalPages);
-            self.totalRecords(data.TotalRecords);
-            //self.SetFavourites();
-        });
+            alert('There are no favourites yet.');
+            return;
+        }
+
+        // Loop over each ID in the fav array
+        for (var i = 0; i < favTeams.length; i++) {
+            var id = favTeams[i];
+
+            // Create the URI for the request
+            var composedUri = self.baseUri() + "/" + id + '?Acronym=' + acronym;
+            // Send the request
+            try {
+                var data = await ajaxHelper(composedUri, 'GET');
+                console.log(data);
+                hideLoading();
+
+                self.favourites.push(data);
+            } catch (error) {
+                console.log('Error: ', error);
+            }
+        }
+    };
+
+    // Function to check if data is present
+    self.hasData = function (record) {
+        return (
+            record.Name !== null && record.Name !== ''
+        );
+    };
+
+    // Function to check if data is present for HTML binding
+    self.hasDataForHTML = function (record) {
+        return self.hasData(record);
     };
 
     //--- Internal functions
@@ -99,11 +122,6 @@ var vm = function () {
                 self.error(errorThrown);
             }
         });
-    }
-
-    function sleep(milliseconds) {
-        const start = Date.now();
-        while (Date.now() - start < milliseconds);
     }
 
     function showLoading() {

@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>ITW 2023/24 - NBA Favourite Players List</title>
+    <title>ITW 2023/24 - NBA Teams List</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap">
@@ -23,10 +23,9 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item"><a class="nav-link" aria-current="page" href="arenas.html" title="Arenas"><i class="fa fa-soccer-ball-o "></i> Arenas</a></li>
                     <li class="nav-item"><a class="nav-link" aria-current="page" href="players.html" title="Players"><i class="fa fa-user "></i> Players</a></li>
-                    <li class="nav-item"><a class="nav-link" aria-current="page" href="teams.html" title="Teams"><i class="fa fa-flag"></i> Teams</a></li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="teams.html" title="Teams"><i class="fa fa-flag"></i> Teams</a></li>
                     <li class="nav-item"><a class="nav-link" aria-current="page" href="states.html" title="States"><i class="fa fa-map-marker"></i> States</a></li>
                     <li class="nav-item"><a class="nav-link" aria-current="page" href="seasons.html" title="Seasons"><i class="fa fa-bookmark"></i> Seasons</a></li>
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="favoritos.html" title="Favoritos"><i class="fa fa-heart"></i> Favorites</a></li>
                     <li class="nav-item"><a class="nav-link" aria-current="page" href="favoritos.html" title="Favoritos"><i class="fa fa-heart"></i> Favorites</a></li>
                     <li class="nav-item"><a class="nav-link" aria-current="page" href="quiz.html" title="Quizzes"><i class="fa fa-question"></i> Quizzes</a></li>
                     <li class="nav-item dropdown">
@@ -42,64 +41,90 @@
             <img src="moon.png" id="icon">
         </div>
     </nav>
-
-    <!-- working area-->
-    <div class="container mt-4">
-        <div class="row border-bottom py-2 mb-2">
-            <h2 class="col-6">Favourite Players</h2>
-            <div class="col-6" id="cover">
+    <!-- Working Area -->
+    <div class="container mt-5">
+        <h1 class="text-center">Easy NBA Quiz</h1>
+        <form id="nbaQuizForm">
+            <!-- Question 1 -->
+            <div class="form-group">
+                <label for="q1">1. Who is known as "The King" and currently plays for the Los Angeles Lakers?</label>
+                <input type="text" class="form-control" id="q1" required>
             </div>
-        </div>
-        <a href="./players.html" class="btn btn-default btn-sm mt-3"><i class="fa fa-list"></i> Back to List</a>
-        <div class="container bg-light mt-4 border rounded" style="padding:30px">
-        <table class="table table-striped table-sm small">
-            <thead class="bg-dark text-light">
-                <tr>
-                    <th scope="col" class="text-center">Photo</th>
-                    <th scope="col" class="text-center">Name</th>
-                    <th scope="col" class="text-center">Birthdate</th>
-                    <th scope="col" class="text-center">DraftYear</th>
-                    <th scope="col" class="text-center">Height</th>
-                    <th scope="col" class="text-center">Weight</th>
-                    <th scope="col" class="text-center">School</th>
-                    <th scope="col" class="text-right"></th>
-                </tr>
-            </thead>
-            <tbody data-bind="foreach: favourites">
-                <tr>
-                    <td class="align-middle">
-                        <img data-bind="attr: { src: Photo, alt: Id }" style="max-width: 50px; max-height: 50px;">
-                    </td>
-                    <td class="align-middle" data-bind="text: Name"></td>
-                    <td class="align-middle" data-bind="text: Birthdate"></td>
-                    <td class="align-middle" data-bind="text: DraftYear"></td>
-                    <td class="align-middle" data-bind="text: Height"></td>
-                    <td class="align-middle" data-bind="text: Weight"></td>
-                    <td class="align-middle" data-bind="text: School"></td>
-                    <td class="text-end">
-                        <a class="btn btn-default btn-light btn-xs" data-bind="attr: { href:'./arenaDetails.html?id=' + Id }"><i class="fa fa-eye" title="Show details"></i></a>
-                        <a class="btn btn-default btn-sm btn-favourite" data-bind="click: function() { $root.removeFav(Id) }"><i class="fa fa-heart text-danger" title="Selecione para remover dos favoritos"></i></a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">
-                        <img src="NBALogo.png" height="30" /> Loading data...
-                    </h5>
+    
+            <!-- Question 2 -->
+            <div class="form-group">
+                <label for="q2">2. Which team does Stephen Curry play for in the NBA?</label>
+                <input type="text" class="form-control" id="q2" required>
+            </div>
+    
+            <!-- Question 3 -->
+            <div class="form-group">
+                <label for="q3">3. Name one NBA team based in Texas.</label>
+                <input type="text" class="form-control" id="q3" required>
+            </div>
+    
+            <!-- Question 4 -->
+            <div class="form-group">
+                <label for="q4">4. The NBA Finals is a best-of-seven series. (True/False)</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q4" id="q4True" value="true" required>
+                    <label class="form-check-label" for="q4True">
+                        True
+                    </label>
                 </div>
-                <div class="modal-body text-center">
-                    <i class="fa fa-spin fa-3x fa-refresh"></i>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q4" id="q4False" value="false" required>
+                    <label class="form-check-label" for="q4False">
+                        False
+                    </label>
                 </div>
             </div>
-        </div>
+    
+            <!-- Question 5 -->
+            <div class="form-group">
+                <label for="q5">5. Michael Jordan played his entire NBA career with the Chicago Bulls. (True/False)</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q5" id="q5True" value="true" required>
+                    <label class="form-check-label" for="q5True">
+                        True
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q5" id="q5False" value="false" required>
+                    <label class="form-check-label" for="q5False">
+                        False
+                    </label>
+                </div>
+            </div>
+    
+            <!-- Question 6 -->
+            <div class="form-group">
+                <label for="q6">6. Who is the all-time leading scorer in NBA history?</label>
+                <select class="form-control" id="q6" required>
+                    <option value="" disabled selected>Select one</option>
+                    <option value="a">LeBron James</option>
+                    <option value="b">Kobe Bryant</option>
+                    <option value="c">Kareem Abdul-Jabbar</option>
+                    <option value="d">Kevin Durant</option>
+                </select>
+            </div>
+    
+            <!-- Question 7 -->
+            <div class="form-group">
+                <label for="q7">7. In which year did the NBA introduce the three-point line?</label>
+                <select class="form-control" id="q7" required>
+                    <option value="" disabled selected>Select one</option>
+                    <option value="a">1975</option>
+                    <option value="b">1980</option>
+                    <option value="c">1986</option>
+                    <option value="d">1992</option>
+                </select>
+            </div>
+    
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-success">Submit</button>
+
+        </form>
     </div>
     <!-- End of Working Area -->
     <nav class="navbar navbar-dark fixed-bottom">
@@ -116,6 +141,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.min.js"></script>
     <script src="navbar.js"></script>
-    <script src="playersfavoritos.js"></script>
+    <script src="quiz_easy.js"></script>
 </body>
 </html>

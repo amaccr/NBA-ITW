@@ -1,10 +1,10 @@
-﻿// ViewModel KnockOut
+// ViewModel KnockOut
 var vm = function () {
     console.log('ViewModel initiated...');
     //---Variáveis locais
     var self = this;
-    self.baseUri = ko.observable('http://192.168.160.58/NBA/API/Seasons');
-    self.displayName = 'NBA Seasons List';
+    self.baseUri = ko.observable('http://192.168.160.58/NBA/API/States');
+    self.displayName = 'NBA States List';
     self.error = ko.observable('');
     self.passingMessage = ko.observable('');
     self.records = ko.observableArray([]);
@@ -43,45 +43,56 @@ var vm = function () {
     };
     self.favourites = ko.observableArray([]);
 
-    //Favourites
-    self.toggleFavourite = function (id) {
-        if (self.favourites.indexOf(id) == -1) {
-            self.favourites.push(id);
+    self.removeFav = function(id) {
+        // Find the favourite with the given ID
+        var favourite = self.favourites().find(function(favStates) {
+            return favStates.Id === id;
+        });
+    
+        // Remove the favourite from the array
+        if (favourite) {
+            self.favourites.remove(favourite);
         }
-        else {
-            self.favourites.remove(id);
+    
+        // Update the local storage
+        var favStates = JSON.parse(localStorage.favStates || '[]');
+        var index = favStates.indexOf(id);
+        if (index !== -1) {
+            favStates.splice(index, 1);
         }
-        localStorage.setItem("favSeasons", JSON.stringify(self.favourites()));
+        localStorage.favStates = JSON.stringify(favStates);
     };
-    self.SetFavourites = function () {
-        let storage;
-        try {
-            storage = JSON.parse(localStorage.getItem("favSeasons"));
-        }
-        catch (e) {
-            ;
-        }
-        if (Array.isArray(storage)) {
-            self.favourites(storage);
-        }
-    }
 
     //--- Page Events
-    self.activate = function (id) {
-        console.log('CALL: getSeasons...');
-        var composedUri = self.baseUri() + "?page=" + id + "&pageSize=" + self.pagesize();
-        ajaxHelper(composedUri, 'GET').done(function (data) {
-            console.log(data);
+    self.activate = async function () {
+        console.log('CALL: getStates...');
+
+        // Retrieve the list of favorite arenas from local storage
+        var favStates = JSON.parse(localStorage.favStates || '[]');
+
+        if (favStates.length === 0) {
             hideLoading();
-            self.records(data.Records);
-            self.currentPage(data.CurrentPage);
-            self.hasNext(data.HasNext);
-            self.hasPrevious(data.HasPrevious);
-            self.pagesize(data.PageSize)
-            self.totalPages(data.TotalPages);
-            self.totalRecords(data.TotalRecords);
-            //self.SetFavourites();
-        });
+            alert('There are no favourites yet.');
+            return;
+        }
+
+        // Loop over each ID in the fav array
+        for (var i = 0; i < favStates.length; i++) {
+            var id = favStates[i];
+
+            // Create the URI for the request
+            var composedUri = self.baseUri() + "/" + id;
+            // Send the request
+            try {
+                var data = await ajaxHelper(composedUri, 'GET');
+                console.log(data);
+                hideLoading();
+
+                self.favourites.push(data);
+            } catch (error) {
+                console.log('Error: ', error);
+            }
+        }
     };
 
     //--- Internal functions

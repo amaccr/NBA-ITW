@@ -1,4 +1,4 @@
-﻿// ViewModel KnockOut
+// ViewModel KnockOut
 var vm = function () {
     console.log('ViewModel initiated...');
     //---Variáveis locais
@@ -43,47 +43,57 @@ var vm = function () {
     };
     self.favourites = ko.observableArray([]);
 
-    //Favourites
-    self.toggleFavourite = function (id) {
-        if (self.favourites.indexOf(id) == -1) {
-            self.favourites.push(id);
+    self.removeFav = function(id) {
+        // Find the favourite with the given ID
+        var favourite = self.favourites().find(function(favSeasons) {
+            return favSeasons.Id === id;
+        });
+    
+        // Remove the favourite from the array
+        if (favourite) {
+            self.favourites.remove(favourite);
         }
-        else {
-            self.favourites.remove(id);
+    
+        // Update the local storage
+        var favSeasons = JSON.parse(localStorage.favSeasons || '[]');
+        var index = favSeasons.indexOf(id);
+        if (index !== -1) {
+            favSeasons.splice(index, 1);
         }
-        localStorage.setItem("favSeasons", JSON.stringify(self.favourites()));
+        localStorage.favSeasons = JSON.stringify(favSeasons);
     };
-    self.SetFavourites = function () {
-        let storage;
-        try {
-            storage = JSON.parse(localStorage.getItem("favSeasons"));
-        }
-        catch (e) {
-            ;
-        }
-        if (Array.isArray(storage)) {
-            self.favourites(storage);
-        }
-    }
 
     //--- Page Events
-    self.activate = function (id) {
+    self.activate = async function () {
         console.log('CALL: getSeasons...');
-        var composedUri = self.baseUri() + "?page=" + id + "&pageSize=" + self.pagesize();
-        ajaxHelper(composedUri, 'GET').done(function (data) {
-            console.log(data);
-            hideLoading();
-            self.records(data.Records);
-            self.currentPage(data.CurrentPage);
-            self.hasNext(data.HasNext);
-            self.hasPrevious(data.HasPrevious);
-            self.pagesize(data.PageSize)
-            self.totalPages(data.TotalPages);
-            self.totalRecords(data.TotalRecords);
-            //self.SetFavourites();
-        });
-    };
 
+        // Retrieve the list of favorite arenas from local storage
+        var favSeasons = JSON.parse(localStorage.favSeasons || '[]');
+
+        if (favSeasons.length === 0) {
+            hideLoading();
+            alert('There are no favourites yet.');
+            return;
+        }
+
+        // Loop over each ID in the fav array
+        for (var i = 0; i < favSeasons.length; i++) {
+            var id = favSeasons[i];
+
+            // Create the URI for the request
+            var composedUri = self.baseUri() + "/" + id;
+            // Send the request
+            try {
+                var data = await ajaxHelper(composedUri, 'GET');
+                console.log(data);
+                hideLoading();
+
+                self.favourites.push(data);
+            } catch (error) {
+                console.log('Error: ', error);
+            }
+        }
+    };
     //--- Internal functions
     function ajaxHelper(uri, method, data) {
         self.error(''); // Clear error message

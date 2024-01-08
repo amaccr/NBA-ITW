@@ -41,6 +41,31 @@ var vm = function () {
             list.push(i + step);
         return list;
     };
+    self.favourites = ko.observableArray([]);
+    self.team = ko.observableArray([]);
+
+    //Favourites
+    self.toggleFavourite = function (id, acronym, team) {
+        if (self.favourites.indexOf(team) == -1) {
+            self.favourites.push(team);
+        }
+        else {
+            self.favourites.remove(team);
+        }
+        localStorage.setItem("favTeams", JSON.stringify(self.favourites()));
+    };
+    self.SetFavourites = function () {
+        let storage;
+        try {
+            storage = JSON.parse(localStorage.getItem("favTeams"));
+        }
+        catch (e) {
+            ;
+        }
+        if (Array.isArray(storage)) {
+            self.favourites(storage);
+        }
+    }
 
     //--- Page Events
     self.activate = function (id) {
@@ -56,7 +81,7 @@ var vm = function () {
             self.pagesize(data.PageSize)
             self.totalPages(data.TotalPages);
             self.totalRecords(data.TotalRecords);
-            //self.SetFavourites();
+            self.SetFavourites();
         });
     };
 
@@ -87,11 +112,6 @@ var vm = function () {
                 self.error(errorThrown);
             }
         });
-    }
-
-    function sleep(milliseconds) {
-        const start = Date.now();
-        while (Date.now() - start < milliseconds);
     }
 
     function showLoading() {
@@ -209,19 +229,6 @@ var vm = function () {
     messages: {
         noResults: '',
         results: function() {}
-        }
-    });
-
-    //Favourites
-    fetch('http://192.168.160.58/NBA/API/Teams')
-    .then(response => response.json())
-    .then(data => {
-        for(let team of data) {
-            // Add an event listener to the heart button of each team
-            document.getElementById('favourite_' + team.id).addEventListener('click', function() {
-                this.classList.toggle('fa-heart');
-                this.classList.toggle('fa-heart-o');
-            });
         }
     });
 
