@@ -43,24 +43,23 @@ var vm = function () {
     };
     self.favourites = ko.observableArray([]);
 
-    self.removeFav = function(id) {
-        // Find the favourite with the given ID
-        var favourite = self.favourites().find(function(favTeams) {
-            return favTeams.Id === id;
+    self.removeFav = function(id, acronym) {
+        // Find the favourite with the given ID and acronym
+        var favourite = self.favourites().find(function(fav) {
+            return fav.Id === id && fav.Acronym === acronym;
         });
-    
-        // Remove the favourite from the array
         if (favourite) {
             self.favourites.remove(favourite);
         }
     
-        // Update the local storage
         var favTeams = JSON.parse(localStorage.favTeams || '[]');
-        var index = favTeams.indexOf(id);
-        if (index !== -1) {
-            favTeams.splice(index, 1);
-        }
-        localStorage.favTeams = JSON.stringify(favTeams);
+        console.log(favTeams);
+        // Remove the favourite from the array
+        var index = favTeams.indexOf(id + ' ' + acronym)
+        favTeams.splice(index,1);
+        localStorage.setItem("favTeams", JSON.stringify(favTeams));
+        //console.log(self.favourites());
+        
     };
 
     //--- Page Events
@@ -78,7 +77,9 @@ var vm = function () {
 
         // Loop over each ID in the fav array
         for (var i = 0; i < favTeams.length; i++) {
-            var id = favTeams[i];
+            var team = favTeams[i].split(' ')
+            var id = team[0];
+            var acronym = team[1];
 
             // Create the URI for the request
             var composedUri = self.baseUri() + "/" + id + '?Acronym=' + acronym;

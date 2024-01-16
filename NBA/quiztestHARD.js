@@ -95,5 +95,16 @@ const questions = [
     result.textContent = `You scored ${correctAnswers} out of ${totalQuestions}. Your percentage: ${percentage.toFixed(2)}%`;
     alert(`You scored ${correctAnswers} out of ${totalQuestions}. (${percentage.toFixed(2)}%)`);
   }
+  // After populating the quiz form
+  document.getElementById('quizForm').addEventListener('submit', function (event) {
+    if (!event.target.checkValidity()) {
+      event.preventDefault();
+      event.stopPropagation();
+      alert('Please answer all questions!')
+    } else {
+      submitQuiz();
+    }
+    event.target.classList.add('was-validated');
+  }, false);
 
   window.onload = populateQuizForm;

@@ -82,12 +82,6 @@
                 </ul>
             </div>
         </div>
-        <div class="d-flex justify-content-end mb-3">
-            <button class="btn btn-dark mr-2" id="tableView">Table View</button>
-            <a href="teams..html">
-                <button class="btn btn-dark" id="gridView">Grid View</button>
-            </a>
-        </div>
         <div>
             <a class="btn btn-default nav-link" href="teamsfavoritos.html">
                 <i class="fa fa-heart-o" title="Add to favorites"></i>Check your favorites
@@ -119,8 +113,8 @@
                     <td class="align-middle" data-bind="text:StateName"></td>
                     <td class="text-end">
                         <a class="btn btn-default btn-light btn-xs" data-bind="attr: { href:'./teamDetails.html?id=' + Id + '&acronym=' + Acronym }"><i class="fa fa-eye" title="Show details"></i></a>
-                        <button  type = "button" class="btn btn-default btn-xs text-danger btn-outline-danger btn-favourite" data-bind="click: () => $parent.toggleFavourite(Id), attr : { 'id': 'favourite_' + Id }" title="Add to favourites">
-                            <i data-bind="attr: {'class': $parent.favourites().includes(Id)? 'fa fa-heart text-danger' : 'fa fa-heart-o'}" class="fa fa-heart-o" title="Selecione para adicionar aos favoritos"></i>
+                        <button  type = "button" class="btn btn-default btn-xs text-danger btn-outline-danger btn-favourite" data-bind="click: () => $parent.toggleFavourite(Id, Acronym), attr : { 'id': 'favourite_' + Id + Acronym}" title="Add to favourites">
+                            <i data-bind="attr: {'class': $parent.favourites().includes(Id + ' ' + Acronym)? 'fa fa-heart text-danger' : 'fa fa-heart-o'}" class="fa fa-heart-o" title="Selecione para adicionar aos favoritos"></i>
                         </button>
                     </td>
                 </tr>

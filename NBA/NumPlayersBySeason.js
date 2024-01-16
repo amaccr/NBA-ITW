@@ -22,7 +22,8 @@ $('document').ready(function () {
                 datasets: [{
                     label: 'Num of Players',
                     data: myData,
-                    borderWidth: 1
+                    borderWidth: 1,
+                    backgroundColor: ["rgb(252,3,3)", "rgb(3,15,252)"]
                 }]
             },
             options: {

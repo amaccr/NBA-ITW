@@ -45,15 +45,17 @@ var vm = function () {
     self.team = ko.observableArray([]);
 
     //Favourites
-    self.toggleFavourite = function (id, acronym, team) {
-        if (self.favourites.indexOf(team) == -1) {
-            self.favourites.push(team);
+    self.toggleFavourite = function (id, acronym) {
+        let newteam = id + " " + acronym
+        if (self.favourites().includes(newteam)) {
+            self.favourites.remove(newteam);
         }
         else {
-            self.favourites.remove(team);
+            self.favourites.push(newteam);
         }
         localStorage.setItem("favTeams", JSON.stringify(self.favourites()));
     };
+    console.log(self.favourites())
     self.SetFavourites = function () {
         let storage;
         try {
